@@ -7,5 +7,4 @@ menuData = pd.DataFrame(menu)
 
 Arranged_menu = menuData.transpose()
 
-
-print(Arranged_menu)
+Arranged_menu.to_xarray()   
