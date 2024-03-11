@@ -45,7 +45,9 @@
        "Venti":4.65
     },
     "Flat White":{
-       "Tall":3.75
+       "Tall":3.75,
+       "Grande": 4.55,
+       "Venti":4.75
     },
     "Skinny Peppermint Mocha ":{
        "Tall":3.95,
@@ -97,7 +99,7 @@
        "Grande":3.95,
        "Venti":4.45
     },
-    "Vanilla Bean Crème Frappuccino":{
+    "Vanilla Bean Crme Frappuccino":{
         
        "Tall":3.25,
        "Grande":3.95,
