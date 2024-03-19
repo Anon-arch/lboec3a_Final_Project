@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int menu_prices[][1][4] = {
+float menu_prices[13][1][3] = {
     //{tall, grande, venti}
     {130.0,145.0,160.0},    //Caffe Americano,                    
     {140.0,155.0,170.0},    //Cappuccino,
@@ -19,11 +19,10 @@ int menu_prices[][1][4] = {
 
 };
 //address of names are arranged according to row number in menu_prices
-char menu_names[] = {'Caffe Americano', 'Cappuccino', 'Caffe Latte', 'Caffe Mocha', 
-                     'Caramel Macchiato', 'Flat White', 'White Chocolate Mocha','Espresso', 
-                     'Cold Coffee Craft Cold Brew', 'Vanilla Sweet Cream Cold Brew', 'Cold Foam Iced Espresso', 
-                     'Signature Hot Chocolate','White Hot Chocolate'
-                    }
+char *menu_names[] = {"Caffe Americano", "Cappuccino", "Caffe Latte", "Caffe Mocha", 
+                     "Caramel Macchiato", "Flat White", "White Chocolate Mocha","Espresso", 
+                     "Cold Coffee Craft Cold Brew", "Vanilla Sweet Cream Cold Brew", "Cold Foam Iced Espresso", 
+                     "Signature Hot Chocolate","White Hot Chocolate"};
 
 
 
@@ -41,6 +40,15 @@ menu item  |   price per size   | stock remaining
 
 */
 void menu_view(){
+    
+    printf("|   Menu Item  |    tall    |   Grande  |   Venti   |\n");
+
+    for(int item = 0; item < 12; item++){
+
+        printf("|   %s                  ", menu_names[item]); 
+        printf("|    %.1f    |   %.1f  |   %.1f   |\n",  menu_prices[item][1][0], menu_prices[item][1][1], menu_prices[item][1][2]);
+        
+    }
 
 
 }
@@ -56,11 +64,5 @@ for add-ons
 
 */
 
-char order_costumizations(int order_code){
-
-    char customizations[] = {'hot', 'iced'};
-
-
-}
 
 
