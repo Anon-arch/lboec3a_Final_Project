@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-float menu_prices[13][1][3] = {
+float menu_prices[13][3] = {
     //{tall, grande, venti}
     {130.0,145.0,160.0},    //Caffe Americano,                    
     {140.0,155.0,170.0},    //Cappuccino,
@@ -43,9 +43,9 @@ void menu_view(){
     
    printf("| %-80s|    %-6s    |   %-6s  |   %-6s   |\n", "Menu Item", "Tall", "Grande", "Venti");
 
-for (int item = 0; item < 12; item++) {
+for (int item = 0; item < 13; item++) {
   printf("|   %-60s                  ", menu_names[item]); 
-  printf("|    %6.1f    |   %6.1f  |   %6.1f   |\n",  menu_prices[item][1][0], menu_prices[item][1][1], menu_prices[item][1][2]);
+  printf("|    %6.1f    |   %6.1f  |   %6.1f   |\n",  menu_prices[item][0], menu_prices[item][1], menu_prices[item][2]);
 }
 
 
