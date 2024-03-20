@@ -32,7 +32,7 @@ returns menu in string to console
 
 
 use for loop to iterate items in the accessed in the 3d array using this format
-{menu item, tall price, grande price, venti price}
+menu item, tall price, grande price, venti price
 
 output must include
 
@@ -41,14 +41,13 @@ menu item  |   price per size   | stock remaining
 */
 void menu_view(){
     
-    printf("|   Menu Item  |    tall    |   Grande  |   Venti   |\n");
+   printf("| %-80s|    %-6s    |   %-6s  |   %-6s   |\n", "Menu Item", "Tall", "Grande", "Venti");
 
-    for(int item = 0; item < 12; item++){
+for (int item = 0; item < 12; item++) {
+  printf("|   %-60s                  ", menu_names[item]); 
+  printf("|    %6.1f    |   %6.1f  |   %6.1f   |\n",  menu_prices[item][1][0], menu_prices[item][1][1], menu_prices[item][1][2]);
+}
 
-        printf("|   %s                  ", menu_names[item]); 
-        printf("|    %.1f    |   %.1f  |   %.1f   |\n",  menu_prices[item][1][0], menu_prices[item][1][1], menu_prices[item][1][2]);
-        
-    }
 
 
 }
