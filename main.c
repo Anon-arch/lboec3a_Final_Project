@@ -48,7 +48,7 @@ int main(void) {
             if (!strcmp(std_formatter(drink_sizes[i]), std_formatter(size)))
             {
                 
-                printf("Anything else? Y/N");
+                printf("Anything else? Y/N ");
                 scanf("%s", &response);
 
                 if(!strcmp(response, "N")){
