@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 int menu_prices[38][3] = {
     ///{tall, grande, venti
@@ -88,7 +89,7 @@ void menu_view() {
   printf("ESPRESSO & MORE\n");
   printf("%-80s  |    %-6s    |   %-6s  |   %-6s   |\n", "Espresso Beverages", "Tall", "Grande", "Venti");
 
-  for (int item = 0; item < sizeof(menu_prices); item++) {
+  for (int item = 0; item < 38; item++) {
 
     // if statements contain category of item
     if(item == 8 ){
@@ -151,3 +152,38 @@ must return an 2d array that contains index of order and customizations chosen
 for add-ons
 
 */
+
+// function that would format the string for standardization in comparison
+
+
+char* std_formatter(const char* str) {
+  int new_len = 0;
+
+  // Count characters excluding spaces
+  for (int i = 0; str[i] != '\0'; i++) {
+    if (str[i] != ' ' && str[i] != '\t') {
+      new_len++;
+    }
+  }
+
+  // Allocate memory for the new string (plus null terminator)
+  char* new_str = malloc(new_len + 1);
+  if (new_str == NULL) {
+    return NULL; // Handle memory allocation failure
+  }
+
+  int j = 0;
+  // Copy lowercase characters to the new string
+  for (int i = 0; str[i] != '\0'; i++) {
+    if (str[i] != ' ' && str[i] != '\t') {
+      new_str[j++] = tolower(str[i]);
+    }
+  }
+
+  // Add null terminator
+  new_str[j] = '\0';
+
+  return new_str;
+}
+
+

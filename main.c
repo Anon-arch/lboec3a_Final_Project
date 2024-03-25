@@ -3,10 +3,13 @@
 #include <stdbool.h>
 #include "build.h"
 
+int orderStatus = 0;
 // Begin main function
+
 int main(void) {
 
     menu_view();
+
 
     char drink[100], size[50], response[100];
     int quantity, i;
@@ -16,47 +19,62 @@ int main(void) {
 // if customer can avail add-on or sub for frapp
 // or if customer's order is hot or iced for espresso
 
-    printf("Hi! What's your order? ");
-    scanf("%[^\n]s", &drink);
+  printf("\n\nHi! What's your order? ");
+  scanf("%[^\n]s", &drink);
+  while(!orderStatus){
 
     for (i = 0; i < 38; i++)
-    {
-        if (strcmp(menu_names[i], drink) == 0)
+  {
+      if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink)))
+      {
+          match_drink = 1;
+          
+        break;
+      }
+      if(i == 37){
+        printf("invalid selection");
+      }
+  }
+  
+  if (match_drink)
+  {
+      printf("How many? ");
+      scanf("%i", &quantity);
+      printf("What size? ");
+      scanf("%s", &size);
+
+      for (i = 0; i < 3; i++)
         {
-            match_drink = 1;
-            printf("How many? ");
-            scanf("%i", &quantity);
+            if (!strcmp(std_formatter(drink_sizes[i]), std_formatter(size)))
+            {
+                
+                printf("Anything else? Y/N");
+                scanf("%s", &response);
 
-            printf("What size? ");
-            scanf("%s", &size);
+                if(!strcmp(response, "N")){
+                    orderStatus = 1;
+                }
 
+                break;
+            }
+            if (i == 2)
+            {
+                 printf("Invalid input! Please enter a valid size.\n");
+            }
+           
         }
-    }
 
-    int match_size = 0;
-    for (i = 0; i < 3; i++)
-    {
-        if (strcmp(drink_sizes[i], size) == 0)
-        {
-            match_size = 1;
-            printf("Anything else? ");
-            scanf("%s", &response);
-        }
-    }
+       
+        
+  }
+    if(strcmp(response, "none")){
+                break;
+            }
 
-    if (match_size != 1)
-    {
-        printf("Invalid input! Please enter a valid size.\n");
-    }
-
-
-    if (match_drink != 1)
-    {
-        printf("Invalid input! Please enter a valid menu item.");
-    }
-
-    // display order summary
-    // create receipt
+  }
+  
+  
+  // display order summar/ create receipt
 
     /* FILE *receipt;
 
@@ -76,4 +94,5 @@ int main(void) {
 
     return 0;
 
-}
+  }
+
