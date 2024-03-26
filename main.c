@@ -49,7 +49,7 @@ int main(void) {
         printf("How many? ");
         scanf("%d", &quantity);
         printf("What size? ");
-        scanf("%s", size);
+        scanf("%s", &size);
 
         // Check if the inputted size is valid
         bool valid_size = false;
@@ -66,7 +66,7 @@ int main(void) {
         }
 
         printf("Anything else? ");
-        scanf("%s", &response); // does not accept inputs with whitespaces T.T
+        scanf(" %[^\n]s", &response); // does not accept inputs with whitespaces T.T
 
         if (!strcmp(std_formatter(response), "Done")) {
             orderStatus = 1;
