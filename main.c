@@ -31,7 +31,7 @@ int main(void) {
 // or if customer's order is hot or iced for espresso
 
     printf("\n\nHi! What's your order? ");
-    scanf("%[^\n]s", &drink);
+    scanf(" %[^\n]s", &drink);
 
     while (!orderStatus) {
         for (i = 0; i < 38; i++) {
@@ -66,9 +66,9 @@ int main(void) {
         }
 
         printf("Anything else? ");
-        scanf("%s", &response); // does not accept inputs with whitespaces T.T
+        scanf(" %[^\n]s", &response); // does not accept inputs with whitespaces T.T
 
-        if (!strcmp(std_formatter(response), "Done")) {
+        if (!strcmp(std_formatter(response), "done")) {
             orderStatus = 1;
             break;
         }
@@ -87,7 +87,7 @@ int main(void) {
             if (!strcmp(std_formatter(menu_names[i]), std_formatter(response))) {
                 strcpy(drink, response);
             }
-            else if (!strcmp(response, "Done")) {
+            else if (!strcmp(response, "done")) {
               orderStatus = 1;
               break;
             }
