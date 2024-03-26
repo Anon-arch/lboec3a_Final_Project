@@ -1,15 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "build.h"
 
+// This holds the order details
+typedef struct {
+    char drink[100];
+    char size[50];
+    int quantity;
+} Order;
+
 int orderStatus = 0;
-// Begin main function
 
 int main(void) {
-
+    // Displays the menu
     menu_view();
 
+    // This array stores the orders
+    Order orders[100];
+    int orderCount = 0;
 
     char drink[100], size[50], response[100];
     int quantity, i;
@@ -19,61 +29,76 @@ int main(void) {
 // if customer can avail add-on or sub for frapp
 // or if customer's order is hot or iced for espresso
 
-  printf("\n\nHi! What's your order? ");
-  scanf("%[^\n]s", &drink);
-  while(!orderStatus){
+    printf("\n\nHi! What's your order? ");
+    scanf("%[^\n]s", &drink);
 
-    for (i = 0; i < 38; i++)
-  {
-      if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink)))
-      {
-          match_drink = 1;
-          
-        break;
-      }
-      if(i == 37){
-        printf("invalid selection");
-      }
-  }
-  
-  if (match_drink)
-  {
-      printf("How many? ");
-      scanf("%i", &quantity);
-      printf("What size? ");
-      scanf("%s", &size);
-
-      for (i = 0; i < 3; i++)
-        {
-            if (!strcmp(std_formatter(drink_sizes[i]), std_formatter(size)))
-            {
-                
-                printf("Anything else? Y/N ");
-                scanf("%s", &response);
-
-                if(!strcmp(response, "N")){
-                    orderStatus = 1;
-                }
-
+    while (!orderStatus) {
+        for (i = 0; i < 38; i++) {
+            if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink))) {
+                match_drink = 1;
                 break;
             }
-            if (i == 2)
-            {
-                 printf("Invalid input! Please enter a valid size.\n");
-            }
-           
         }
 
-       
-        
-  }
-    if(strcmp(response, "none")){
+        if (!match_drink) {
+            printf("Invalid selection! Please enter a valid item.\n");
+            break;
+        }
+
+        printf("How many? ");
+        scanf("%d", &quantity);
+        printf("What size? ");
+        scanf("%s", size);
+
+        // Check if the inputted size is valid
+        bool valid_size = false;
+        for (i = 0; i < 3; i++) {
+            if (!strcmp(std_formatter(drink_sizes[i]), std_formatter(size))) {
+                valid_size = true;
                 break;
             }
+        }
 
-  }
-  
-  
+        if (!valid_size) {
+            printf("Invalid input! Please enter a valid size.\n");
+            break;
+        }
+
+        printf("Anything else? ");
+        scanf("%s", &response); // does not accept inputs with whitespaces T.T
+
+        if (!strcmp(std_formatter(response), "Done")) {
+            orderStatus = 1;
+            break;
+        }
+
+        // Store the order details
+        strcpy(orders[orderCount].drink, drink);
+        strcpy(orders[orderCount].size, size);
+        orders[orderCount].quantity = quantity;
+        orderCount++;
+
+        // Reset match_drink for the next iteration
+        match_drink = 0;
+
+        // If the response is a drink item, treat it as another order
+        for (i = 0; i < 38; i++) {
+            if (!strcmp(std_formatter(menu_names[i]), std_formatter(response))) {
+                strcpy(drink, response);
+            }
+            else if (!strcmp(response, "Done")) {
+              orderStatus = 1;
+              break;
+            }
+        }
+
+    }
+
+    printf("\nOrder summary:\n");
+    for (i = 0; i < orderCount; i++) {
+        printf("%d. %d %s of %s\n", i + 1, orders[i].quantity, orders[i].size, orders[i].drink);
+    }
+
   // display order summar/ create receipt
 
     /* FILE *receipt;
@@ -95,4 +120,5 @@ int main(void) {
     return 0;
 
   }
+
 
