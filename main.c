@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "build.h"
 
+
 // This holds the order details
 typedef struct {
     char drink[100];
@@ -30,7 +31,7 @@ int main(void) {
 // or if customer's order is hot or iced for espresso
 
     printf("\n\nHi! What's your order? ");
-    scanf(" %[^\n]s", &drink);
+    scanf("%[^\n]s", &drink);
 
     while (!orderStatus) {
         for (i = 0; i < 38; i++) {
@@ -46,7 +47,14 @@ int main(void) {
         }
 
         printf("How many? ");
-        scanf("%d", &quantity);
+        // checks if the input is an integer
+        if (scanf("%d", &quantity) != 1)
+        {
+            printf("Please enter a valid quantity!");
+            break;
+        }
+
+
         printf("What size? ");
         scanf("%s", &size);
 
@@ -65,9 +73,9 @@ int main(void) {
         }
 
         printf("Anything else? ");
-        scanf(" %[^\n]s", &response); // does not accept inputs with whitespaces T.T
+        scanf(" %[^\n]s", &response);
 
-        if (!strcmp(std_formatter(response), "done")) {
+        if (!strcmp(std_formatter(response), "Done")) {
             orderStatus = 1;
             break;
         }
@@ -86,7 +94,7 @@ int main(void) {
             if (!strcmp(std_formatter(menu_names[i]), std_formatter(response))) {
                 strcpy(drink, response);
             }
-            else if (!strcmp(response, "done")) {
+            else if (!strcmp(response, "Done")) {
               orderStatus = 1;
               break;
             }
@@ -120,5 +128,3 @@ int main(void) {
     return 0;
 
   }
-
-
