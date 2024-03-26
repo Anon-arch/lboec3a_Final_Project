@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "build.h"
 
-
 // This holds the order details
 typedef struct {
     char drink[100];
