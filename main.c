@@ -10,6 +10,7 @@ typedef struct {
     char drink[100];
     char size[50];
     int quantity;
+    long price;
 } Order;
 
 int orderStatus = 0;
@@ -25,8 +26,8 @@ int main(void) {
     char drink[100], size[50], response[100];
     int quantity, i;
     int match_drink = 0;
+    long totalCost = 0;
 
-// use strcmp to determine an invalid input,
 // if customer can avail add-on or sub for frapp
 // or if customer's order is hot or iced for espresso
 
@@ -72,6 +73,26 @@ int main(void) {
             break;
         }
 
+
+        // Retrieve the price based on the selected drink and size
+        int drinkIndex = -1;
+        for (int i = 0; i < 38; i++) {
+            if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink))) {
+                drinkIndex = i;
+                break;
+            }
+        }
+
+        // Menu prices for venti and grande are being switched :(
+        long price = menu_prices[drinkIndex][0];
+        for (int i = 0; i < 3; i++) {
+            if (!strcmp(std_formatter(size), std_formatter(drink_sizes[i]))) {
+                price = menu_prices[drinkIndex][i];
+                break;
+            }
+        }
+
+
         printf("Anything else? ");
         scanf(" %[^\n]s", &response);
 
@@ -84,6 +105,7 @@ int main(void) {
         strcpy(orders[orderCount].drink, drink);
         strcpy(orders[orderCount].size, size);
         orders[orderCount].quantity = quantity;
+        orders[orderCount].price = price;
         orderCount++;
 
         // Reset match_drink for the next iteration
@@ -100,29 +122,67 @@ int main(void) {
             }
         }
 
+        // Calculate subtotal for the current order
+        long subtotal = quantity * price;
+
+        // Update total cost
+        totalCost += subtotal;
+
     }
 
+    // displays the order summary (fix format, refer to canvas)
     printf("\nOrder summary:\n");
-    for (i = 0; i < orderCount; i++) {
-        printf("%d. %d %s of %s\n", i + 1, orders[i].quantity, orders[i].size, orders[i].drink);
+
+    printf("%-60s      %-6s       %-6s     %-6s   \n", "Item", "Price", "Quantity", "Subtotal");
+    for (i = 0; i < orderCount; i++)
+    {
+        long subtotal = orders[i].quantity*orders[i].price;
+        printf("%-60s      %-6d       %-6d     %-6d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
     }
 
-  // display order summar/ create receipt
 
-    /* FILE *receipt;
+    printf("Total cost: %d\n\n", totalCost);
 
-    // receipt = fopen("receipt.csv", "w");
+    long cash, change;
+    char confirm_response[10];
 
-    // fprintf(receipt, "Item, Price, quantity, subtotal\n");
+    printf("Would you like to confirm your order [Yes/No]? ");
+    scanf(" %[^\n]s", &confirm_response);
 
-    // use for loop to iterate thru the orders
-    fprintf(receipt, "%s, %li, %i, %li\n", drink, price, quantity, subTotal);
-    fprintf(receipt, "Total Php,,, %li\n", grandTotal);
-    fprintf(receipt, "Cash,,, %li\n", cash);
-    fprintf(receipt, "Change,,, %li\n", change);
+    if (!strcmp(std_formatter(confirm_response), std_formatter("Yes"))) {
+        printf("How much is your cash? ");
+        scanf("%li", &cash);
 
-    fclose(receipt);
-    */
+        change = cash - totalCost;
+
+        printf("Your change is: %li\n", change); // do something when inputted cash is insufficient
+
+        // print the receipt
+        FILE *receipt;
+
+        receipt = fopen("receipt.csv", "w");
+
+        fprintf(receipt, "Item, Price, quantity, subtotal\n");
+
+        for (int i = 0; i < orderCount; i++)
+        {
+            long subtotal = orders[i].price * orders[i].quantity;
+            fprintf(receipt, "\"%s\", %li, %i, %li\n", orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
+        }
+
+        fprintf(receipt, "Total Php,,, %li\n", totalCost);
+        fprintf(receipt, "Cash,,, %li\n", cash);
+        fprintf(receipt, "Change,,, %li\n", change);
+
+        fclose(receipt);
+
+        printf("Saving your transaction into receipt.csv...\n");
+        printf("Thank you for visiting Starbucks! See you again!");
+    }
+
+    else if (!strcmp(std_formatter(confirm_response), std_formatter("No"))) {
+        printf("Anything else?"); // must take another order
+    }
 
 
     return 0;
