@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 int menu_prices[38][3] = {
     ///{tall, grande, venti
@@ -185,5 +187,4 @@ char* std_formatter(const char* str) {
 
   return new_str;
 }
-
 
