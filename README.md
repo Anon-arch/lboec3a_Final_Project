@@ -26,3 +26,7 @@ The Starbucks Order Management System is a command-line application designed to 
 
 ## Step-by-Step Guide
 
+### Step 1: Placing an Order
+    The program starts by displaying the menu, You'll be prompted to enter your drink order. Type the name of the beverage you want (as listed on the menu).
+
+
