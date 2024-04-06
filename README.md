@@ -28,6 +28,38 @@ The Starbucks Order Management System is a command-line application designed to 
 
 ### Step 1: Placing an Order
 
-The program starts by displaying the menu, You'll be prompted to enter your drink order. Type the name of the beverage you want (as listed on the menu).
+- Open the `main.c` file then start the program.
+- The program starts by displaying the menu, You'll be prompted to enter your drink order.
+- Type the name of the beverage you want *(as listed on the menu)*.
+
+![image](https://github.com/Anon-arch/lboec3a_Final_Project/assets/54138252/7415de0e-e32c-41ae-b37c-0b0ec014f676)
+
+
+### Step 2: Customization (for Specific Drinks)
+- Depending on the chosen drink, the program might ask if you want it hot or iced (e.g., for espresso). Enter your preference.
+- For drinks that allow add-ons or substitutes, the program displays a list of options with their price adjustments. Enter the name of the add-on/substitute you want (or type "nothing" if you don't want any).
+
+![image](https://github.com/Anon-arch/lboec3a_Final_Project/assets/54138252/c2dbc49b-dd5b-4fc1-947b-c4ef64e2a2ae)
+
+### Step 3: Quantity and Size
+- You'll be asked to specify the quantity (number) of the drink you want. Enter a valid number greater than 0.
+- Next, select the size of your drink from the available options (e.g., Tall, Grande, Venti).
+
+![image](https://github.com/Anon-arch/lboec3a_Final_Project/assets/54138252/19d22a36-58aa-458a-a72e-f7716485a74b)
+
+### Step 4: Multiple Orders
+- If you enter "done" after placing an order, the program stops taking orders and displays the final summary and receipt.
+- If you enter another drink name after placing an order, it treats it as a new order and repeats steps 1-3.
+
+### Step 4: Order Confirmation and Payment
+
+- The program summarizes your order, including the item name, price, quantity, and subtotal.
+- You'll be prompted to confirm your order (Yes/No).
+- If you confirm, the program asks for the amount of cash you're paying. It calculates and displays your change.
+
+painsert nalang here if tapos na yung sa summary
+
+### Step 5: Receipt Generation
+- A receipt file named receipt.csv is created, containing details of your order (items, price, quantity, subtotal), total cost, cash paid, and change.
 
 
