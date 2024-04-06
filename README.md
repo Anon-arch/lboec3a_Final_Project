@@ -10,7 +10,7 @@ The Starbucks Order Management System is a command-line application designed to 
 
 ***Order Placement:*** Customers can place orders by specifying the Starbucks beverage, size, quantity, and any desired customizations or add-ons.
 
-***Input Validation:*** The system validates user inputs such as drink selection, quantity, and size to ensure accurate order processing. Furthermore, the system employs a fool-proof feature utilizing the 'std_formatter()' custom function, which formats user inputs by removing spaces and converting characters to lowercase, thereby minimizing errors due to inconsistent input formats.
+***Input Validation:*** The system validates user inputs such as drink selection, quantity, and size to ensure accurate order processing. Furthermore, the system employs a fool-proof feature utilizing the `std_formatter()` custom function, which formats user inputs by removing spaces and converting characters to lowercase, thereby minimizing errors due to inconsistent input formats.
 
 ***Customization Options:*** Depending on the selected Starbucks beverage, customers are provided with options for customizations such as hot or iced variants, as well as additional add-ons or substitutions.
 
