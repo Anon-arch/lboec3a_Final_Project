@@ -83,6 +83,10 @@ while (!orderStatus) {
             printf("\n\nAny Add-ons/Substitute? ");
             scanf(" %[^\n]s", add_ons_response);
 
+            if(!strcmp(std_formatter(add_ons_response), "nothing")){
+                price = 0;
+            }
+
             
             for (int custom = 0; custom < 7; custom++){
 
@@ -93,7 +97,10 @@ while (!orderStatus) {
                 break;
             }
 
+
             }
+
+
                 
 
             
@@ -235,7 +242,8 @@ while (!orderStatus) {
             }
 
             else if (!strcmp(std_formatter(confirm_response), std_formatter("No"))) {
-                printf("Anything else?"); // must take another order
+                printf("Anything else? "); // must take another order
+                scanf(" %[^\n]s", drink);
             }
         }
 
