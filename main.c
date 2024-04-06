@@ -30,47 +30,47 @@ int main(void) {
     int price;
     long totalCost = 0;
 
-    printf("\n\nHi! What's your order? ");
+// if customer can avail add-on or sub for frapp
+// or if customer's order is hot or iced for espresso
 
-    while (!orderStatus) {
-        while(!match_drink){
-            scanf(" %[^\n]s", drink); // Corrected scanf format specifier
+printf("\n\nHi! What's your order? ");
+while (!orderStatus) {
 
-                for (i = 0; i < 38; i++) {
-                    if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink)) && i <= 8) { // Assuming menu_names is an array of strings
-                        match_drink = 1;
-                        break;
-                    }
-                    else if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink)) && i > 8 && i < 28) { // Assuming menu_names is an array of strings
-                        match_drink = 2;
-                        break;
-                    }
+// if customer can avail add-on or sub for frapp
+// or if customer's order is hot or iced for espresso
+  while(!match_drink){
 
-                }
+        scanf("%[^\n]", drink); // Corrected scanf format specifier
 
-                if (!match_drink) {
-                    printf("\nInvalid selection! Please enter a valid item.\n");
-                    printf("Hi! What's your order? ");
-                    continue;
-                }
-
-        }
-                // Asks for the number of drinks
-                bool quantity_checker = false;
-
-                while (!quantity_checker) {
-                printf("How many? ");
-                if (scanf("%d", &quantity) == 1 && quantity > 0) {
-                    quantity_checker = true;
-                } else {
-                    printf("\nInvalid input! Please enter a valid quantity.\n");
-                    // Clear the input buffer
-                    while ((getchar()) != '\n');
-                }
+        for (i = 0; i < 38; i++) {
+            if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink))) { // Assuming menu_names is an array of strings
+                match_drink = 1;
+                break;
             }
+        }
 
-                // Asks for the drink size
-                bool valid_size = false;
+        if (!match_drink) {
+            printf("\n Invalid selection! Please enter a valid item.");
+        }
+
+  }
+
+
+        bool quantity_checker = false;
+
+        while (!quantity_checker) {
+        printf("\nHow many? ");
+        if (scanf("%d", &quantity) == 1 && quantity > 0) {
+            quantity_checker = true;
+        } else {
+            printf("\nInvalid input! Please enter a valid quantity.\n");
+            // Clear the input buffer
+            while ((getchar()) != '\n');
+        }
+    }
+
+        // Check if the inputted size is valid
+        bool valid_size = false;
 
                 while(!valid_size){
                     printf("What size? ");
@@ -150,23 +150,24 @@ int main(void) {
                     }
                 }
 
-                for (int i = 0; i < 3; i++) {
-                    if (!strcmp(std_formatter(size), std_formatter(drink_sizes[i]))) {
-                    // Adjust the indexing to access the correct price based on the selected size
-                    int price_index = (i == 1) ? 2 : (i == 2) ? 1 : i; // Switching indexes for venti and grande
-                    price += menu_prices[drinkIndex][price_index];
-                    break;
-                    }
-                }
+        int price;
+        // Menu prices for venti and grande are being switched :(
+        for (int i = 0; i < 3; i++) {
+            if (!strcmp(std_formatter(size), std_formatter(drink_sizes[i]))) {
+            // Adjust the indexing to access the correct price based on the selected size
+            int price_index = (i == 1) ? 2 : (i == 2) ? 1 : i; // Switching indexes for venti and grande
+            price = menu_prices[drinkIndex][price_index];
+            break;
+        }
+        }
 
-                // Store the order details
-                // "option " variable stores addons, customizations, hot/cold
-                strcpy(orders[orderCount].drink, drink);
-                strcpy(orders[orderCount].size, size);
-                strcpy(orders[orderCount].option, option);
-                orders[orderCount].quantity = quantity;
-                orders[orderCount].price = price;
-                orderCount++;
+
+        // Store the order details
+        strcpy(orders[orderCount].drink, drink);
+        strcpy(orders[orderCount].size, size);
+        orders[orderCount].quantity = quantity;
+        orders[orderCount].price = price;
+        orderCount++;
 
                 // Reset match_drink for the next iteration
                 match_drink = 0;
@@ -184,13 +185,13 @@ int main(void) {
                 // Update total cost
                 totalCost += subtotal;
 
-                printf("Anything else? ");
-                scanf(" %[^\n]s", drink);
+        printf("Anything else? ");
+        scanf(" %[^\n]s", &response);
 
-                if (!strcmp(std_formatter(drink), "done")) {
-                    // prints order summary
-                    // displays the order summary (fix format, refer to canvas)
-                    printf("\nOrder summary:\n");
+        if (!strcmp(std_formatter(response), "done")) {
+            // prints order summary
+            // displays the order summary (fix format, refer to canvas)
+            printf("\nOrder summary:\n");
 
                     printf("%-60s      %-6s       %-6s     %-6s   \n", "Item", "Price", "Quantity", "Subtotal");
                     for (i = 0; i < orderCount; i++)
@@ -209,31 +210,16 @@ int main(void) {
                     printf("Would you like to confirm your order [Yes/No]? ");
                     scanf(" %[^\n]s", &confirm_response);
 
-                    if (!strcmp(std_formatter(confirm_response), std_formatter("Yes"))) {
-                        // Raises an error when cash is insufficient/invalid number
-                        bool sufficient_cash = false;
-                        while (!sufficient_cash)
-                        {
-                            printf("How much is your cash? ");
-                            if (scanf("%li", &cash) != 1)
-                            {
-                                printf("Invalid Input! Please enter a valid amount of cash.\n");
-                                while (getchar() != '\n');
-                            }
-                            else if (cash >= totalCost)
-                            {
-                                change = cash - totalCost;
-                                printf("Your change is: %li\n", change);
-                                sufficient_cash = true;
-                            }
-                            else if (!sufficient_cash)
-                            {
-                                printf("You have insufficient cash!\n");
-                            }
-                        }
+            if (!strcmp(std_formatter(confirm_response), std_formatter("Yes"))) {
+                printf("How much is your cash? ");
+                scanf("%li", &cash);
 
-                        // Print the receipt
-                        FILE *receipt;
+                change = cash - totalCost;
+
+                printf("Your change is: %li\n", change); // do something when inputted cash is insufficient
+
+                // print the receipt
+                FILE *receipt;
 
                         receipt = fopen("receipt.csv", "w");
 
@@ -262,20 +248,21 @@ int main(void) {
 
                         fclose(receipt);
 
-                        printf("\nSaving your transaction into receipt.csv...\n");
-                        printf("Thank you for visiting Starbucks! See you again!");
-                        orderStatus = 1;
-                        break;
-                    }
+                printf("Saving your transaction into receipt.csv...\n");
+                printf("Thank you for visiting Starbucks! See you again!");
+                orderStatus = 1;
+                break;
+            }
 
-                    else if (!strcmp(std_formatter(confirm_response), std_formatter("No"))) {
-                        printf("Anything else? "); // takes another order
-                    }
-                }
-
-
+            else if (!strcmp(std_formatter(confirm_response), std_formatter("No"))) {
+                printf("Anything else?"); // must take another order
+            }
         }
 
-    return 0;
-}
 
+    }
+
+
+    return 0;
+
+  }
