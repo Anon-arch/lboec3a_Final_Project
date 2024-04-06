@@ -56,6 +56,11 @@ while (!orderStatus) {
 
         if (!match_drink) {
             printf("\n Invalid selection! Please enter a valid item.");
+            // Clear the input buffer
+            while ((getchar()) != '\n');
+
+            printf("\nWhat's your order? ");
+            scanf(" %[^\n]s", drink);
         }
 
   }
@@ -98,10 +103,7 @@ while (!orderStatus) {
             }
 
 
-            }
-
-
-                
+            }       
 
             
         }
@@ -214,8 +216,19 @@ while (!orderStatus) {
 
                 change = cash - totalCost;
 
-                printf("Your change is: %li\n", change); // do something when inputted cash is insufficient
+               
+                // while loop to handle insufficient cash
+                while (change < 0)
+                {
+                    printf("insufficient funds, please pay again\n");
 
+                    printf("How much is your cash? ");
+                    scanf("%li", &cash);
+
+                    change = cash - totalCost;
+                }
+                if(change >= 0){
+                 printf("Your change is: %li\n", change); 
                 // print the receipt
                 FILE *receipt;
 
@@ -239,6 +252,10 @@ while (!orderStatus) {
                 printf("Thank you for visiting Starbucks! See you again!");
                 orderStatus = 1;
                 break;
+
+                }
+                
+                
             }
 
             else if (!strcmp(std_formatter(confirm_response), std_formatter("No"))) {
