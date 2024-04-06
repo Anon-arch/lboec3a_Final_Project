@@ -4,7 +4,7 @@ By: Lorenzo Raphael Cabaero & Aniemor Delos Santos
 ## Introduction
 The Starbucks Order Management System is a command-line application designed to facilitate ordering and processing transactions at Starbucks outlets. This system allows customers to place orders for various beverages and customizations, calculates the total cost, and generates a receipt for the transaction.
 
-###Key Features:
+### Key Features:
 
 ***Menu Display:*** The system starts by displaying a menu of available Starbucks beverages along with their prices and options for customization.
 
