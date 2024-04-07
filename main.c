@@ -32,23 +32,17 @@ int main(void) {
     int price;
     long totalCost = 0;
 
-// if customer can avail add-on or sub for frapp
-// or if customer's order is hot or iced for espresso
-
+// Takes the customer's order
 printf("\n\nHi! What's your order? ");
-scanf(" %[^\n]s", drink); // Corrected scanf format specifier
+scanf(" %[^\n]s", drink);
 while (!orderStatus) {
 
-// if customer can avail add-on or sub for frapp
-// or if customer's order is hot or iced for espresso
   while(!match_drink){
-        
-        
 
         for (i = 0; i < 38; i++) {
             if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink)) && i <= 8) { // Assuming menu_names is an array of strings
                 match_drink = 1;
-                
+
                 break;
             }
             else if (!strcmp(std_formatter(menu_names[i]), std_formatter(drink)) && i > 8 && i < 28) { // Assuming menu_names is an array of strings
@@ -64,7 +58,7 @@ while (!orderStatus) {
         }
 
         if (!match_drink) {
-            printf("\n Invalid selection! Please enter a valid item.");
+            printf("\nInvalid selection! Please enter a valid item.");
             // Clear the input buffer
             while ((getchar()) != '\n');
 
@@ -74,67 +68,10 @@ while (!orderStatus) {
 
   }
 
- // CUSTOMIZATION FUNCTION
-        if(match_drink == 1){
-            
-
-            while(i){
-                printf("Is it Hot or Iced? ");
-                scanf(" %[^\n]s", add_ons_response);
-
-                if(!strcmp(std_formatter(add_ons_response), "hot") || !strcmp(std_formatter(add_ons_response), "iced")){
-                    break;
-                }
-                printf("Invalid Option\n");
-
-            }
-            strcat(add_ons_response, " ");
-            strcpy(orders[orderCount].options, add_ons_response);
-            price = 0;
-        }
-        else if(match_drink == 2){
-            printf("\nCustomize Your Beverage\n");
-            printf("ADD\n");
-            for (int custom = 0; custom < 7; custom++)
-            {
-                printf(" - %s + %i\n", customizations[custom], add_ons[custom][0]);
-            
-            if(custom == 5)
-            {
-                printf("\nSubstitute\n");
-            }
-
-            }
-            
-            printf("\n\nAny Add-ons/Substitute? ");
-            scanf(" %[^\n]s", add_ons_response);
-
-            if(!strcmp(std_formatter(add_ons_response), "nothing")){
-                strcpy(orders[orderCount].options, "nothing");
-                price = 0;
-            }
-
-            
-            for (int custom = 0; custom < 7; custom++){
-
-                if (!strcmp(std_formatter(customizations[custom]), std_formatter(add_ons_response))){
-
-                price = add_ons[custom][0];
-                orders[orderCount].add_ons_price = add_ons[custom][0];
-                
-                strcpy(orders[orderCount].options, customizations[custom]);
-                break;
-            }
-
-
-            }       
-
-            
-        }
-  
+// custom here
 
         bool quantity_checker = false;
-        
+
         while (!quantity_checker) {
         printf("How many? ");
         if (scanf("%d", &quantity) == 1 && quantity > 0) {
@@ -145,7 +82,7 @@ while (!orderStatus) {
             while ((getchar()) != '\n');
         }
     }
-        
+
         // Check if the inputted size is valid
         bool valid_size = false;
         while(!valid_size){
@@ -161,9 +98,63 @@ while (!orderStatus) {
             if(!valid_size){
                 printf("Invalid input! Please enter a valid size.\n");
             }
-           
+
         }
-        
+
+ // CUSTOMIZATION FUNCTION
+        if(match_drink == 1){
+
+            while(i){
+                printf("Is it Hot or Iced? ");
+                scanf(" %[^\n]s", add_ons_response);
+
+                if(!strcmp(std_formatter(add_ons_response), "hot") || !strcmp(std_formatter(add_ons_response), "iced")){
+                    break;
+                }
+                printf("Invalid option! Please choose between hot and iced only.\n");
+
+            }
+            strcat(add_ons_response, " ");
+            strcpy(orders[orderCount].options, add_ons_response);
+            price = 0;
+        }
+        else if(match_drink == 2){
+            bool valid_custom = false;
+            while (!valid_custom) {
+            printf("Any Add-ons/Substitute? ");
+            scanf(" %[^\n]s", add_ons_response);
+
+            if(!strcmp(std_formatter(add_ons_response), "nothing")){
+                strcpy(orders[orderCount].options, "nothing");
+                price = 0;
+                valid_custom = true;
+            }
+
+
+            for (int custom = 0; custom < 7; custom++){
+
+                if (!strcmp(std_formatter(customizations[custom]), std_formatter(add_ons_response))){
+
+                price = add_ons[custom][0];
+                orders[orderCount].add_ons_price = add_ons[custom][0];
+
+                strcpy(orders[orderCount].options, customizations[custom]);
+                valid_custom = true;
+                break;
+            }
+            }
+
+            if (!valid_custom)
+            {
+                printf("Invalid option! Please enter a valid add-on/substitution.\n");
+            }
+
+
+            }
+
+
+        }
+
 
         // Retrieve the price based on the selected drink and size
         int drinkIndex;
@@ -175,8 +166,6 @@ while (!orderStatus) {
             }
         }
 
-       
-        // Menu prices for venti and grande are being switched :(
         for (int i = 0; i < 3; i++) {
             if (!strcmp(std_formatter(size), std_formatter(drink_sizes[i]))) {
             // Adjust the indexing to access the correct price based on the selected size
@@ -186,12 +175,9 @@ while (!orderStatus) {
         }
         }
 
-        
+
         // Store the order details
         // "option " variable stores addons, customizations, hot/cold
-
-
-        
         orders[orderCount].quantity = quantity;
         orders[orderCount].price = price;
         orders[orderCount].drink_category = match_drink;
@@ -206,13 +192,13 @@ while (!orderStatus) {
         // Update total cost
         totalCost += subtotal;
 
-        printf("Anything else? ");
+        printf("\nAnything else? ");
         scanf(" %[^\n]s", drink);
 
         if (!strcmp(std_formatter(drink), "done")) {
             // prints order summary
             // displays the order summary (fix format, refer to canvas)
-            
+
             printf("\nOrder summary:\n\n");
 
             printf("%-30s%10s%10s%10s\n\n", "Item", "Price", "Quantity", "Subtotal");
@@ -220,29 +206,29 @@ while (!orderStatus) {
             {
 
                 // please align the letters
+                int add_on_subtotal = orders[i].quantity*orders[i].add_ons_price;
                 long subtotal = orders[i].quantity*orders[i].price;
+                totalCost += add_on_subtotal;
                 if(orders[i].drink_category == 1){
+                    strcat(orders[i].drink, " "); // adds a space in concatenated drink and option
                     strcat(orders[i].drink, orders[i].options);
                     strcat(orders[i].drink, orders[i].size);
 
                     printf("%-30s%10d%10d%10d   \n", orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
                 }
                 if(orders[i].drink_category == 2){
-
-
-                    strcat(orders[i].drink, orders[i].size);
                     printf("%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
 
                     if(strcmp(orders[i].options, "nothing")){
-                        printf(" - %s + %i\n", orders[i].options, orders[i].add_ons_price);
+                        printf("%-30s%10d%10d%10d   \n", orders[i].options, orders[i].add_ons_price, orders[i].quantity, add_on_subtotal);
                     }
-                    
+
                 }
                  if(orders[i].drink_category == 3){
                     printf("%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
                  }
-                
-                
+
+
             }
 
             printf("\n __________________________________________________________________________________");
@@ -260,11 +246,11 @@ while (!orderStatus) {
 
                 change = cash - totalCost;
 
-               
+
                 // while loop to handle insufficient cash
                 while (change < 0)
                 {
-                    printf("insufficient funds, please pay again\n");
+                    printf("Insufficient funds, please pay again\n");
 
                     printf("How much is your cash? ");
                     scanf("%li", &cash);
@@ -272,44 +258,39 @@ while (!orderStatus) {
                     change = cash - totalCost;
                 }
                 if(change >= 0){
-                 printf("Your change is: %li\n", change); 
+                 printf("Your change is: %li\n", change);
                 // print the receipt
                 FILE *receipt;
 
                 receipt = fopen("receipt.csv", "w");
 
-                fprintf(receipt, "%-30s%10s%10s%10s\n\n", "Item", "Price", "Quantity", "Subtotal");
+                fprintf(receipt, "Item, Price, Quantity, Subtotal\n");
                 for (i = 0; i < orderCount; i++)
             {
 
-                // please align the letters
                 long subtotal = orders[i].quantity*orders[i].price;
+                int add_on_subtotal = orders[i].quantity*orders[i].add_ons_price;
                 if(orders[i].drink_category == 1){
-                    strcat(orders[i].drink, orders[i].options);
-                    strcat(orders[i].drink, orders[i].size);
 
-                    fprintf(receipt, "%-30s%10d%10d%10d   \n", orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
+                    fprintf(receipt, "\"%s\", %d, %d, %d\n", orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
                 }
                 if(orders[i].drink_category == 2){
-
-
-                    strcat(orders[i].drink, orders[i].size);
-                    fprintf(receipt, "%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
+                    fprintf(receipt, "\"%s\", %d, %d, %d\n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
 
                     if(strcmp(orders[i].options, "nothing")){
-                        fprintf(receipt, " - %s + %i\n", orders[i].options, orders[i].add_ons_price);
+                        fprintf(receipt, "\"%s\", %i, %d, %d\n", orders[i].options, orders[i].add_ons_price, orders[i].quantity, add_on_subtotal);
                     }
-                    
+
                 }
                 if(orders[i].drink_category == 3){
-                    fprintf(receipt, "%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
+                    fprintf(receipt, "\"%s\", %d, %d, %d\n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
                  }
-                
+
             }
 
-                fprintf(receipt, "Total Php:    %li\n", totalCost);
-                fprintf(receipt, "Cash:   %li\n", cash);
-                fprintf(receipt, "Change:   %li\n", change);
+                fprintf(receipt, "Total Php,,,%li\n", totalCost);
+                fprintf(receipt, "Cash,,,%li\n", cash);
+                fprintf(receipt, "Change,,,%li\n", change);
 
                 fclose(receipt);
 
@@ -319,8 +300,8 @@ while (!orderStatus) {
                 break;
 
                 }
-                
-                
+
+
             }
 
             else if (!strcmp(std_formatter(confirm_response), std_formatter("No"))) {
@@ -337,4 +318,3 @@ while (!orderStatus) {
 
 return 0;
 }
-    
