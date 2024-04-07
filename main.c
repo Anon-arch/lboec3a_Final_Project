@@ -55,6 +55,10 @@ while (!orderStatus) {
                 match_drink = 2;
                 break;
             }
+            else if(!strcmp(std_formatter(menu_names[i]), std_formatter(drink)) && i >= 28){
+                match_drink = 3;
+                break;
+            }
 
         }
 
@@ -233,6 +237,10 @@ while (!orderStatus) {
                     }
                     
                 }
+                 if(orders[i].drink_category == 3){
+                    printf("%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
+                 }
+                
                 
             }
 
@@ -292,6 +300,9 @@ while (!orderStatus) {
                     }
                     
                 }
+                if(orders[i].drink_category == 3){
+                    fprintf("%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
+                 }
                 
             }
 
