@@ -50,6 +50,11 @@ while (!orderStatus) {
                 match_drink = 2;
                 break;
             }
+            else if(!strcmp(std_formatter(menu_names[i]), std_formatter(drink)) && i >= 28){
+                match_drink = 3;
+                price = 0;
+                break;
+            }
 
         }
 
@@ -219,7 +224,6 @@ while (!orderStatus) {
                     }
 
                 }
-
             }
 
             printf("\n __________________________________________________________________________________");
@@ -275,7 +279,6 @@ while (!orderStatus) {
                     }
 
                 }
-
             }
 
                 fprintf(receipt, "Total Php,,,%li\n", totalCost);
