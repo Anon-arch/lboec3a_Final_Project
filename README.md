@@ -51,13 +51,15 @@ The Starbucks Order Management System is a command-line application designed to 
 - If you enter `done` after placing an order, the program stops taking orders and displays the final summary and receipt.
 - If you enter another drink name after placing an order, it treats it as a new order and repeats steps 1-3.
 
+![order_summary](https://github.com/Anon-arch/lboec3a_Final_Project/assets/156874263/52da8676-9edb-4e12-9916-67e1a90ff5b5)
+
 ### Step 4: Order Confirmation and Payment
 
 - The program summarizes your order, including the item name, price, quantity, and subtotal.
 - You'll be prompted to confirm your order `(Yes/No)`.
 - If you confirm, the program asks for the amount of cash you're paying. It calculates and displays your change.
 
-![order_summary](https://github.com/Anon-arch/lboec3a_Final_Project/assets/156874263/52da8676-9edb-4e12-9916-67e1a90ff5b5)
+![image](https://github.com/Anon-arch/lboec3a_Final_Project/assets/156874263/3ca660d8-9b21-42d6-8de9-1750459145ae)
 
 ### Step 5: Receipt Generation
 - A receipt file named `receipt.csv` is created, containing details of your order (items, price, quantity, subtotal), total cost, cash paid, and change.
