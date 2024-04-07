@@ -222,8 +222,8 @@ while (!orderStatus) {
 
             }
 
-
-            printf("Total cost: %d\n\n", totalCost);
+            printf("\n __________________________________________________________________________________");
+            printf("\nTotal cost: %d\n\n", totalCost);
 
             long cash, change;
             char confirm_response[10];
@@ -275,7 +275,8 @@ while (!orderStatus) {
                     }
 
                 }
-                }
+
+            }
 
                 fprintf(receipt, "Total Php,,,%li\n", totalCost);
                 fprintf(receipt, "Cash,,,%li\n", cash);
