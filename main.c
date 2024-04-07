@@ -71,22 +71,34 @@ while (!orderStatus) {
 
  // CUSTOMIZATION FUNCTION
         if(match_drink == 1){
-            printf("Is it Hot or Iced? ");
-            scanf(" %[^\n]s", add_ons_response);
+            
+
+            while(i){
+                printf("Is it Hot or Iced? ");
+                scanf(" %[^\n]s", add_ons_response);
+
+                if(!strcmp(std_formatter(add_ons_response), "hot") || !strcmp(std_formatter(add_ons_response), "iced")){
+                    break;
+                }
+                printf("Invalid Option\n");
+
+            }
+            strcat(add_ons_response, " ");
             strcpy(orders[orderCount].options, add_ons_response);
             price = 0;
         }
         else if(match_drink == 2){
             printf("\nCustomize Your Beverage\n");
             printf("ADD\n");
-            for (int custom = 0; custom < 5; custom++)
+            for (int custom = 0; custom < 7; custom++)
             {
                 printf(" - %s + %i\n", customizations[custom], add_ons[custom][0]);
-            }
-            printf("\nSubstitute\n");
-            for (int custom = 5; custom < 7; custom++)
+            
+            if(custom == 5)
             {
-                printf(" - %s +%i\n", customizations[custom], add_ons[custom][0]);
+                printf("\nSubstitute\n");
+            }
+
             }
             
             printf("\n\nAny Add-ons/Substitute? ");
@@ -102,8 +114,8 @@ while (!orderStatus) {
 
                 if (!strcmp(std_formatter(customizations[custom]), std_formatter(add_ons_response))){
 
-                price = add_ons[custom][1];
-                orders[orderCount].add_ons_price = add_ons[custom][1];
+                price = add_ons[custom][0];
+                orders[orderCount].add_ons_price = add_ons[custom][0];
                 
                 strcpy(orders[orderCount].options, customizations[custom]);
                 break;
@@ -198,18 +210,23 @@ while (!orderStatus) {
             
             printf("\nOrder summary:\n\n");
 
-            printf("%-60s      %-6s       %-6s     %-6s   \n", "Item", "Price", "Quantity", "Subtotal");
+            printf("%-30s%10s%10s%10s\n\n", "Item", "Price", "Quantity", "Subtotal");
             for (i = 0; i < orderCount; i++)
             {
 
                 // please align the letters
                 long subtotal = orders[i].quantity*orders[i].price;
                 if(orders[i].drink_category == 1){
-                    printf("%s %s %-60s      %-6d       %-6d     %-6d   \n",orders[i].drink, orders[i].options, orders[i].size, orders[i].price, orders[i].quantity, subtotal);
+                    strcat(orders[i].drink, orders[i].options);
+                    strcat(orders[i].drink, orders[i].size);
+
+                    printf("%-30s%10d%10d%10d   \n", orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
                 }
                 if(orders[i].drink_category == 2){
 
-                    printf("%s %-60s      %-6d       %-6d     %-6d   \n",orders[i].drink, orders[i].size, orders[i].price, orders[i].quantity, subtotal);
+
+                    strcat(orders[i].drink, orders[i].size);
+                    printf("%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
 
                     if(strcmp(orders[i].options, "nothing")){
                         printf(" - %s + %i\n", orders[i].options, orders[i].add_ons_price);
@@ -219,8 +236,8 @@ while (!orderStatus) {
                 
             }
 
-
-            printf("Total cost: %d\n\n", totalCost);
+            printf("\n __________________________________________________________________________________");
+            printf("\nTotal cost: %d\n\n", totalCost);
 
             long cash, change;
             char confirm_response[10];
@@ -252,23 +269,31 @@ while (!orderStatus) {
 
                 receipt = fopen("receipt.csv", "w");
 
-                fprintf(receipt, "%-60s      %-6s       %-6s     %-6s   \n", "Item", "Price", "Quantity", "Subtotal");
+                fprintf(receipt, "%-30s%10s%10s%10s\n\n", "Item", "Price", "Quantity", "Subtotal");
+                for (i = 0; i < orderCount; i++)
+            {
 
-                for (int i = 0; i < orderCount; i++)
-                {
+                // please align the letters
+                long subtotal = orders[i].quantity*orders[i].price;
                 if(orders[i].drink_category == 1){
-                    fprintf(receipt,"%s %s %-50s      %-6d       %-6d     %-6d   \n",orders[i].drink, orders[i].options, orders[i].size, orders[i].price, orders[i].quantity, subtotal);
+                    strcat(orders[i].drink, orders[i].options);
+                    strcat(orders[i].drink, orders[i].size);
+
+                    fprintf(receipt, "%-30s%10d%10d%10d   \n", orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
                 }
                 if(orders[i].drink_category == 2){
 
-                    fprintf(receipt,"%s %-60s      %-6d       %-6d     %-6d   \n",orders[i].drink, orders[i].size, orders[i].price, orders[i].quantity, subtotal);
+
+                    strcat(orders[i].drink, orders[i].size);
+                    fprintf(receipt, "%-30s%10d%10d%10d   \n",orders[i].drink, orders[i].price, orders[i].quantity, subtotal);
 
                     if(strcmp(orders[i].options, "nothing")){
-                        fprintf(receipt," - %s + %i\n", orders[i].options, orders[i].add_ons_price);
+                        fprintf(receipt, " - %s + %i\n", orders[i].options, orders[i].add_ons_price);
                     }
                     
                 }
-                }
+                
+            }
 
                 fprintf(receipt, "Total Php:    %li\n", totalCost);
                 fprintf(receipt, "Cash:   %li\n", cash);

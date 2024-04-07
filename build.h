@@ -49,15 +49,15 @@ int menu_prices[38][3] = {
     {125, 140, 155},  // Caffeine-free herbal Tea Full-Leaf
 };
 //address of names are arranged according to row number in menu_prices
-char *menu_names[] = {"Caffe Americano", "Cappuccino", "Caffe Latte", "Caffe Mocha",
-                     "Caramel Macchiato", "Flat White", "White Chocolate Mocha","Espresso",
-                     "Cold Coffee Craft Cold Brew", "Vanilla Sweet Cream Cold Brew", "Cold Foam Iced Espresso",
-                     "Signature Hot Chocolate","White Hot Chocolate", "Caramel", "Mocha", "White Mocha", "Coffee Jelly",
-                     "Java Chip", "Dark Mocha", "Chocolate Cream", "Vanilla Cream", "Caramel Cream", "Chocolate Chip Cream",
-                     "Starwberries & Cream", "Green Tea Cream", "Iced Shaken Black Tea with Ruby Grapefruit & Honey",
-                     "Iced Shaken Hibiscus Tea with Pomegranate Pearls", "Matcha & Espresso Fusion", "Green Iced Shaken", "Black Iced Shaken",
-                     "Caffeine-free hibiscus herbal Iced Shaken", "Black Tea Latte", "Chai Tea Latte", "Green Tea Latte", "Green Full-Leaf",
-                     "White Full-Leaf", "Black Full-Leaf", "Caffeine-free herbal Tea Full-Leaf"};
+char *menu_names[] = {"Caffe Americano ", "Cappuccino ", "Caffe Latte ", "Caffe Mocha ",
+                     "Caramel Macchiato ", "Flat White ", "White Chocolate Mocha ","Espresso ",
+                     "Cold Coffee Craft Cold Brew ", "Vanilla Sweet Cream Cold Brew ", "Cold Foam Iced Espresso ",
+                     "Signature Hot Chocolate ","White Hot Chocolate ", "Caramel ", "Mocha ", "White Mocha ", "Coffee Jelly ",
+                     "Java Chip", "Dark Mocha ", "Chocolate Cream ", "Vanilla Cream ", "Caramel Cream ", "Chocolate Chip Cream ",
+                     "Starwberries & Cream ", "Green Tea Cream ", "Iced Shaken Black Tea with Ruby Grapefruit & Honey ",
+                     "Iced Shaken Hibiscus Tea with Pomegranate Pearls ", "Matcha & Espresso Fusion ", "Green Iced Shaken ", "Black Iced Shaken ",
+                     "Caffeine-free hibiscus herbal Iced Shaken ", "Black Tea Latte ", "Chai Tea Latte ", "Green Tea Latte ", "Green Full-Leaf ",
+                     "White Full-Leaf ", "Black Full-Leaf ", "Caffeine-free herbal Tea Full-Leaf "};
 
 //sizes for drinks
 char *drink_sizes[] = {"Tall", "Venti", "Grande"};
